@@ -1,0 +1,51 @@
+{
+  "project": {
+    "name": "MSE241_OAtanasov_20221015",
+    "mode": "greenfield"
+  },
+  "planner": {
+    "maxClarifications": 5,
+    "model": "opus",
+    "provider": "anthropic"
+  },
+  "curator": {
+    "model": "opus",
+    "maxTurns": 25,
+    "enabled": true
+  },
+  "generator": {
+    "model": "sonnet",
+    "maxTurnsPerSprint": 50,
+    "autoCommit": true,
+    "branchPattern": "bober/{feature-name}",
+    "provider": "anthropic"
+  },
+  "evaluator": {
+    "model": "sonnet",
+    "strategies": [
+      {
+        "type": "lint",
+        "required": false
+      },
+      {
+        "type": "build",
+        "required": true
+      }
+    ],
+    "maxIterations": 3,
+    "provider": "anthropic"
+  },
+  "sprint": {
+    "maxSprints": 10,
+    "requireContracts": true,
+    "sprintSize": "medium"
+  },
+  "pipeline": {
+    "maxIterations": 20,
+    "requireApproval": false,
+    "contextReset": "always",
+    "researchPhase": true,
+    "architectPhase": false
+  },
+  "commands": {}
+}
