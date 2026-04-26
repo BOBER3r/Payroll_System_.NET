@@ -1,0 +1,29 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="PayrollSystem.Web.Site" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Payroll System</title>
+    <link rel="stylesheet" type="text/css" href="<%= ResolveUrl("~/Content/Site.css") %>" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header>
+            <h1>Payroll System</h1>
+            <nav>
+                <a id="navHome"        runat="server" href="~/Default.aspx">Home</a>
+                <a id="navEmployees"   runat="server" href="~/Employees.aspx">Employees</a>
+                <a id="navPayroll"     runat="server" href="#">Payroll</a>
+                <a id="navReports"     runat="server" href="#">Reports</a>
+                <a id="navTaxBrackets" runat="server" href="#">Tax Brackets</a>
+            </nav>
+        </header>
+        <main>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </main>
+        <footer>
+            <p>&copy; <%= DateTime.Now.Year %> Payroll System</p>
+        </footer>
+    </form>
+</body>
+</html>
