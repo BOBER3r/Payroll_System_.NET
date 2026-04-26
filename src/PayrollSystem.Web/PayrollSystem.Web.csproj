@@ -84,6 +84,9 @@
     <Content Include="Employees.aspx" />
     <Content Include="EmployeeEdit.aspx" />
     <Content Include="Payroll.aspx" />
+    <Content Include="Reports.aspx" />
+    <Content Include="EmployeeHistory.aspx" />
+    <Content Include="TaxBrackets.aspx" />
     <Content Include="Site.master" />
     <Content Include="Content\Site.css" />
     <Content Include="packages.config" />
@@ -128,6 +131,27 @@
     </Compile>
     <Compile Include="Payroll.aspx.designer.cs">
       <DependentUpon>Payroll.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeHistory.aspx.cs">
+      <DependentUpon>EmployeeHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EmployeeHistory.aspx.designer.cs">
+      <DependentUpon>EmployeeHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TaxBrackets.aspx.cs">
+      <DependentUpon>TaxBrackets.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TaxBrackets.aspx.designer.cs">
+      <DependentUpon>TaxBrackets.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
 

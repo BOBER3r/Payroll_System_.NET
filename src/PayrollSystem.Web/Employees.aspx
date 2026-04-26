@@ -26,6 +26,9 @@
                     <asp:HyperLink ID="lnkEdit" runat="server"
                                    NavigateUrl='<%# "~/EmployeeEdit.aspx?id=" + Eval("Id") %>'>Edit</asp:HyperLink>
                     &nbsp;|&nbsp;
+                    <asp:HyperLink ID="lnkHistory" runat="server"
+                                   NavigateUrl='<%# "~/EmployeeHistory.aspx?id=" + Eval("Id") %>'>History</asp:HyperLink>
+                    &nbsp;|&nbsp;
                     <asp:LinkButton ID="btnDelete" runat="server"
                                     CommandName="DeleteEmployee"
                                     CommandArgument='<%# Eval("Id") %>'

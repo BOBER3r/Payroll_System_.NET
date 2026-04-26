@@ -14,8 +14,8 @@
                 <a id="navHome"        runat="server" href="~/Default.aspx">Home</a>
                 <a id="navEmployees"   runat="server" href="~/Employees.aspx">Employees</a>
                 <a id="navPayroll"     runat="server" href="~/Payroll.aspx">Payroll</a>
-                <a id="navReports"     runat="server" href="#">Reports</a>
-                <a id="navTaxBrackets" runat="server" href="#">Tax Brackets</a>
+                <a id="navReports"     runat="server" href="~/Reports.aspx">Reports</a>
+                <a id="navTaxBrackets" runat="server" href="~/TaxBrackets.aspx">Tax Brackets</a>
             </nav>
         </header>
         <main>

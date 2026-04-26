@@ -14,6 +14,9 @@ namespace PayrollSystem.Web
             ApplyActive(navEmployees,   path, "~/Employees.aspx");
             ApplyActive(navEmployees,   path, "~/EmployeeEdit.aspx"); // EmployeeEdit also lights the Employees tab
             ApplyActive(navPayroll,     path, "~/Payroll.aspx");
+            ApplyActive(navEmployees,   path, "~/EmployeeHistory.aspx"); // History also lights the Employees tab
+            ApplyActive(navReports,     path, "~/Reports.aspx");
+            ApplyActive(navTaxBrackets, path, "~/TaxBrackets.aspx");
         }
 
         private static void ApplyActive(System.Web.UI.HtmlControls.HtmlAnchor anchor, string currentPath, string targetPath)
