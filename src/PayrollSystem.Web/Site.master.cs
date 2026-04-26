@@ -13,6 +13,7 @@ namespace PayrollSystem.Web
             ApplyActive(navHome,        path, "~/Default.aspx");
             ApplyActive(navEmployees,   path, "~/Employees.aspx");
             ApplyActive(navEmployees,   path, "~/EmployeeEdit.aspx"); // EmployeeEdit also lights the Employees tab
+            ApplyActive(navPayroll,     path, "~/Payroll.aspx");
         }
 
         private static void ApplyActive(System.Web.UI.HtmlControls.HtmlAnchor anchor, string currentPath, string targetPath)

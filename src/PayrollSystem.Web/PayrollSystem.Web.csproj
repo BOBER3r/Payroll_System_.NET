@@ -83,6 +83,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Employees.aspx" />
     <Content Include="EmployeeEdit.aspx" />
+    <Content Include="Payroll.aspx" />
     <Content Include="Site.master" />
     <Content Include="Content\Site.css" />
     <Content Include="packages.config" />
@@ -120,6 +121,13 @@
     </Compile>
     <Compile Include="EmployeeEdit.aspx.designer.cs">
       <DependentUpon>EmployeeEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Payroll.aspx.cs">
+      <DependentUpon>Payroll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Payroll.aspx.designer.cs">
+      <DependentUpon>Payroll.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
 
