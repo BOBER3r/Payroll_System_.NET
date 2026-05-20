@@ -63,14 +63,6 @@
       <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.118\lib\net46\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Data.SQLite.EF6, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.118\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data.SQLite.Linq, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.118\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -176,8 +168,8 @@
 
   <Target Name="CopySQLiteInteropDll" AfterTargets="Build">
     <ItemGroup>
-      <SQLiteInteropX86 Include="$(SolutionDir)packages\System.Data.SQLite.Core.1.0.118\build\net46\x86\SQLite.Interop.dll" />
-      <SQLiteInteropX64 Include="$(SolutionDir)packages\System.Data.SQLite.Core.1.0.118\build\net46\x64\SQLite.Interop.dll" />
+      <SQLiteInteropX86 Include="$(SolutionDir)packages\**\x86\SQLite.Interop.dll" />
+      <SQLiteInteropX64 Include="$(SolutionDir)packages\**\x64\SQLite.Interop.dll" />
     </ItemGroup>
     <Copy SourceFiles="@(SQLiteInteropX86)"
           DestinationFolder="$(OutDir)x86\"
