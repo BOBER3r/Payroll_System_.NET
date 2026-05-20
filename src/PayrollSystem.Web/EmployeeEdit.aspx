@@ -31,7 +31,8 @@
 
     <div class="form-row">
         <label for="<%= txtBaseRate.ClientID %>">Base Hourly Rate</label>
-        <asp:TextBox ID="txtBaseRate" runat="server" />
+        <asp:TextBox ID="txtBaseRate" runat="server"
+            TextMode="Number" min="0.01" max="10000" step="0.01" placeholder="0.00" />
         <asp:RequiredFieldValidator ID="rfvBaseRate" runat="server"
             ControlToValidate="txtBaseRate" Display="Dynamic"
             ErrorMessage="Base rate is required." Text="*" />

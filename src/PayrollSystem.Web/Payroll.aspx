@@ -21,23 +21,20 @@
     </div>
 
     <div class="form-row">
-        <label for="<%= txtPeriodLabel.ClientID %>">Period</label>
-        <asp:TextBox ID="txtPeriodLabel" runat="server" />
+        <label for="<%= txtPeriodLabel.ClientID %>">Pay Period (end date)</label>
+        <asp:TextBox ID="txtPeriodLabel" runat="server" TextMode="Date" />
         <asp:RequiredFieldValidator ID="rfvPeriodLabel" runat="server"
             ControlToValidate="txtPeriodLabel" Display="Dynamic"
-            ErrorMessage="Period label is required." Text="*" CssClass="error" />
+            ErrorMessage="Pay period date is required." Text="*" CssClass="error" />
     </div>
 
     <div class="form-row">
         <label for="<%= txtRegularHours.ClientID %>">Regular Hours</label>
-        <asp:TextBox ID="txtRegularHours" runat="server" />
+        <asp:TextBox ID="txtRegularHours" runat="server"
+            TextMode="Number" min="0" max="744" step="0.5" placeholder="0" />
         <asp:RequiredFieldValidator ID="rfvRegularHours" runat="server"
             ControlToValidate="txtRegularHours" Display="Dynamic"
             ErrorMessage="Regular hours are required." Text="*" CssClass="error" />
-        <asp:CompareValidator ID="cmpRegularHoursNonNeg" runat="server"
-            ControlToValidate="txtRegularHours" Type="Double"
-            Operator="GreaterThanEqual" ValueToCompare="0" Display="Dynamic"
-            ErrorMessage="Regular hours must be a non-negative number." Text="*" CssClass="error" />
         <asp:RangeValidator ID="rngRegularHours" runat="server"
             ControlToValidate="txtRegularHours" Type="Double"
             MinimumValue="0" MaximumValue="744" Display="Dynamic"
@@ -46,14 +43,11 @@
 
     <div class="form-row">
         <label for="<%= txtOvertimeHours.ClientID %>">Overtime Hours</label>
-        <asp:TextBox ID="txtOvertimeHours" runat="server" />
+        <asp:TextBox ID="txtOvertimeHours" runat="server"
+            TextMode="Number" min="0" max="200" step="0.5" placeholder="0" />
         <asp:RequiredFieldValidator ID="rfvOvertimeHours" runat="server"
             ControlToValidate="txtOvertimeHours" Display="Dynamic"
             ErrorMessage="Overtime hours are required." Text="*" CssClass="error" />
-        <asp:CompareValidator ID="cmpOvertimeNonNeg" runat="server"
-            ControlToValidate="txtOvertimeHours" Type="Double"
-            Operator="GreaterThanEqual" ValueToCompare="0" Display="Dynamic"
-            ErrorMessage="Overtime hours must be a non-negative number." Text="*" CssClass="error" />
         <asp:RangeValidator ID="rngOvertime" runat="server"
             ControlToValidate="txtOvertimeHours" Type="Double"
             MinimumValue="0" MaximumValue="200" Display="Dynamic"
@@ -62,7 +56,8 @@
 
     <div class="form-row">
         <label for="<%= txtOtherDeductions.ClientID %>">Other Deductions</label>
-        <asp:TextBox ID="txtOtherDeductions" runat="server" />
+        <asp:TextBox ID="txtOtherDeductions" runat="server"
+            TextMode="Number" min="0" step="0.01" placeholder="0" Text="0" />
         <asp:RequiredFieldValidator ID="rfvOtherDeductions" runat="server"
             ControlToValidate="txtOtherDeductions" Display="Dynamic"
             ErrorMessage="Other deductions are required (use 0 if none)." Text="*" CssClass="error" />
