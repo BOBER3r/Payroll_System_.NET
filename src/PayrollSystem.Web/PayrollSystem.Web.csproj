@@ -175,6 +175,31 @@
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets"
           Condition="'$(VSToolsPath)' != ''" />
 
+  <!-- Force-copy SQLitePCLRaw assemblies into bin\. The legacy <Reference>
+       HintPaths above can silently miss copying these on some restores,
+       which causes runtime FileNotFoundException for SQLitePCLRaw.core. -->
+  <Target Name="CopySQLitePCLRawAssemblies" AfterTargets="Build">
+    <ItemGroup>
+      <_SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.core.*\lib\netstandard2.0\SQLitePCLRaw.core.dll" />
+      <_SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.bundle_e_sqlite3.*\lib\net461\SQLitePCLRaw.batteries_v2.dll" />
+      <_SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.provider.e_sqlite3.*\lib\netstandard2.0\SQLitePCLRaw.provider.e_sqlite3.dll" />
+      <_SqlitePclRawNative Include="$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.*\runtimes\win-x86\native\e_sqlite3.dll" />
+      <_SqlitePclRawNative64 Include="$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.*\runtimes\win-x64\native\e_sqlite3.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_SqlitePclRawFiles)"
+          DestinationFolder="$(OutDir)"
+          SkipUnchangedFiles="true"
+          Condition="'@(_SqlitePclRawFiles)' != ''" />
+    <Copy SourceFiles="@(_SqlitePclRawNative)"
+          DestinationFolder="$(OutDir)x86\"
+          SkipUnchangedFiles="true"
+          Condition="'@(_SqlitePclRawNative)' != ''" />
+    <Copy SourceFiles="@(_SqlitePclRawNative64)"
+          DestinationFolder="$(OutDir)x64\"
+          SkipUnchangedFiles="true"
+          Condition="'@(_SqlitePclRawNative64)' != ''" />
+  </Target>
+
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349C5851-65DF-11DA-9384-00065B846F21}">
