@@ -50,11 +50,13 @@ namespace PayrollSystem.Core.Data
 
             const string sql = @"
                 INSERT INTO PayrollRecords (
-                    EmployeeId, PeriodLabel, RegularHours, OvertimeHours, BaseRate,
+                    EmployeeId, PeriodLabel, PeriodStartDate, PeriodEndDate,
+                    RegularHours, OvertimeHours, BaseRate,
                     GrossPay, SocialContribution, TaxableIncome, IncomeTax,
                     OtherDeductions, NetPay, CalculatedAt
                 ) VALUES (
-                    @employeeId, @periodLabel, @regularHours, @overtimeHours, @baseRate,
+                    @employeeId, @periodLabel, @periodStart, @periodEnd,
+                    @regularHours, @overtimeHours, @baseRate,
                     @grossPay, @socialContribution, @taxableIncome, @incomeTax,
                     @otherDeductions, @netPay, @calculatedAt
                 );
@@ -66,6 +68,12 @@ namespace PayrollSystem.Core.Data
                 cmd.CommandText = sql;
                 cmd.Parameters.AddWithValue("@employeeId",         record.EmployeeId);
                 cmd.Parameters.AddWithValue("@periodLabel",        record.PeriodLabel ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@periodStart",        record.PeriodStartDate.HasValue
+                    ? (object)record.PeriodStartDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
+                    : DBNull.Value);
+                cmd.Parameters.AddWithValue("@periodEnd",          record.PeriodEndDate.HasValue
+                    ? (object)record.PeriodEndDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
+                    : DBNull.Value);
                 cmd.Parameters.AddWithValue("@regularHours",       record.RegularHours);
                 cmd.Parameters.AddWithValue("@overtimeHours",      record.OvertimeHours);
                 cmd.Parameters.AddWithValue("@baseRate",           record.BaseRate);
@@ -88,7 +96,8 @@ namespace PayrollSystem.Core.Data
         public PayrollRecord GetById(int id)
         {
             const string sql = @"
-                SELECT Id, EmployeeId, PeriodLabel, RegularHours, OvertimeHours, BaseRate,
+                SELECT Id, EmployeeId, PeriodLabel, PeriodStartDate, PeriodEndDate,
+                       RegularHours, OvertimeHours, BaseRate,
                        GrossPay, SocialContribution, TaxableIncome, IncomeTax,
                        OtherDeductions, NetPay, CalculatedAt
                 FROM   PayrollRecords
@@ -113,7 +122,8 @@ namespace PayrollSystem.Core.Data
         public IList<PayrollRecord> GetByEmployee(int employeeId)
         {
             const string sql = @"
-                SELECT Id, EmployeeId, PeriodLabel, RegularHours, OvertimeHours, BaseRate,
+                SELECT Id, EmployeeId, PeriodLabel, PeriodStartDate, PeriodEndDate,
+                       RegularHours, OvertimeHours, BaseRate,
                        GrossPay, SocialContribution, TaxableIncome, IncomeTax,
                        OtherDeductions, NetPay, CalculatedAt
                 FROM   PayrollRecords
@@ -170,7 +180,8 @@ namespace PayrollSystem.Core.Data
                     : string.Empty;
 
                 cmd.CommandText = @"
-                    SELECT Id, EmployeeId, PeriodLabel, RegularHours, OvertimeHours, BaseRate,
+                    SELECT Id, EmployeeId, PeriodLabel, PeriodStartDate, PeriodEndDate,
+                           RegularHours, OvertimeHours, BaseRate,
                            GrossPay, SocialContribution, TaxableIncome, IncomeTax,
                            OtherDeductions, NetPay, CalculatedAt
                     FROM   PayrollRecords "
@@ -194,17 +205,21 @@ namespace PayrollSystem.Core.Data
                 Id                 = reader.GetInt32(0),
                 EmployeeId         = reader.GetInt32(1),
                 PeriodLabel        = reader.IsDBNull(2) ? null : reader.GetString(2),
-                RegularHours       = reader.GetDecimal(3),
-                OvertimeHours      = reader.GetDecimal(4),
-                BaseRate           = reader.GetDecimal(5),
-                GrossPay           = reader.GetDecimal(6),
-                SocialContribution = reader.GetDecimal(7),
-                TaxableIncome      = reader.GetDecimal(8),
-                IncomeTax          = reader.GetDecimal(9),
-                OtherDeductions    = reader.GetDecimal(10),
-                NetPay             = reader.GetDecimal(11),
+                PeriodStartDate    = reader.IsDBNull(3) ? (DateTime?)null : DateTime.Parse(
+                    reader.GetString(3), CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal),
+                PeriodEndDate      = reader.IsDBNull(4) ? (DateTime?)null : DateTime.Parse(
+                    reader.GetString(4), CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal),
+                RegularHours       = reader.GetDecimal(5),
+                OvertimeHours      = reader.GetDecimal(6),
+                BaseRate           = reader.GetDecimal(7),
+                GrossPay           = reader.GetDecimal(8),
+                SocialContribution = reader.GetDecimal(9),
+                TaxableIncome      = reader.GetDecimal(10),
+                IncomeTax          = reader.GetDecimal(11),
+                OtherDeductions    = reader.GetDecimal(12),
+                NetPay             = reader.GetDecimal(13),
                 CalculatedAt       = DateTime.Parse(
-                    reader.GetString(12),
+                    reader.GetString(14),
                     CultureInfo.InvariantCulture,
                     DateTimeStyles.RoundtripKind)
             };

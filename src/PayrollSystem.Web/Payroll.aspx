@@ -21,11 +21,23 @@
     </div>
 
     <div class="form-row">
-        <label for="<%= txtPeriodLabel.ClientID %>">Pay Period (end date)</label>
-        <asp:TextBox ID="txtPeriodLabel" runat="server" TextMode="Date" />
-        <asp:RequiredFieldValidator ID="rfvPeriodLabel" runat="server"
-            ControlToValidate="txtPeriodLabel" Display="Dynamic"
-            ErrorMessage="Pay period date is required." Text="*" CssClass="error" />
+        <label for="<%= txtPeriodStart.ClientID %>">Period Start</label>
+        <asp:TextBox ID="txtPeriodStart" runat="server" TextMode="Date" />
+        <asp:RequiredFieldValidator ID="rfvPeriodStart" runat="server"
+            ControlToValidate="txtPeriodStart" Display="Dynamic"
+            ErrorMessage="Period start date is required." Text="*" CssClass="error" />
+    </div>
+
+    <div class="form-row">
+        <label for="<%= txtPeriodEnd.ClientID %>">Period End</label>
+        <asp:TextBox ID="txtPeriodEnd" runat="server" TextMode="Date" />
+        <asp:RequiredFieldValidator ID="rfvPeriodEnd" runat="server"
+            ControlToValidate="txtPeriodEnd" Display="Dynamic"
+            ErrorMessage="Period end date is required." Text="*" CssClass="error" />
+        <asp:CompareValidator ID="cmpPeriodOrder" runat="server"
+            ControlToValidate="txtPeriodEnd" ControlToCompare="txtPeriodStart"
+            Type="Date" Operator="GreaterThanEqual" Display="Dynamic"
+            ErrorMessage="Period end date must be on or after the start date." Text="*" CssClass="error" />
     </div>
 
     <div class="form-row">

@@ -84,10 +84,23 @@ namespace PayrollSystem.Web
                 return;
             }
 
+            DateTime periodStart, periodEnd;
+            if (!DateTime.TryParse(txtPeriodStart.Text, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out periodStart)
+             || !DateTime.TryParse(txtPeriodEnd.Text,   CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out periodEnd))
+            {
+                ShowMessage("Period dates must be valid.", "error");
+                return;
+            }
+            string periodLabel = periodStart.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
+                               + " → "
+                               + periodEnd.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+
             var input = new PayrollInput
             {
                 EmployeeId      = employeeId,
-                PeriodLabel     = txtPeriodLabel.Text.Trim(),
+                PeriodLabel     = periodLabel,
+                PeriodStartDate = periodStart,
+                PeriodEndDate   = periodEnd,
                 RegularHours    = regular,
                 OvertimeHours   = overtime,
                 BaseRate        = employee.BaseHourlyRate,
@@ -100,6 +113,8 @@ namespace PayrollSystem.Web
             // Round-trip ALL inputs + results through ViewState so Save_Click rebuilds without recalc
             ViewState["EmployeeId"]         = input.EmployeeId;
             ViewState["PeriodLabel"]        = input.PeriodLabel;
+            ViewState["PeriodStartDate"]    = input.PeriodStartDate;
+            ViewState["PeriodEndDate"]      = input.PeriodEndDate;
             ViewState["RegularHours"]       = input.RegularHours;
             ViewState["OvertimeHours"]      = input.OvertimeHours;
             ViewState["BaseRate"]           = input.BaseRate;
@@ -134,6 +149,8 @@ namespace PayrollSystem.Web
             {
                 EmployeeId         = (int)    ViewState["EmployeeId"],
                 PeriodLabel        = (string) ViewState["PeriodLabel"],
+                PeriodStartDate    = (DateTime?)ViewState["PeriodStartDate"],
+                PeriodEndDate      = (DateTime?)ViewState["PeriodEndDate"],
                 RegularHours       = (decimal)ViewState["RegularHours"],
                 OvertimeHours      = (decimal)ViewState["OvertimeHours"],
                 BaseRate           = (decimal)ViewState["BaseRate"],
@@ -151,13 +168,16 @@ namespace PayrollSystem.Web
             // Reset form so user can enter a new payroll
             txtRegularHours.Text    = "";
             txtOvertimeHours.Text   = "";
-            txtOtherDeductions.Text = "";
-            txtPeriodLabel.Text     = "";
+            txtOtherDeductions.Text = "0";
+            txtPeriodStart.Text     = "";
+            txtPeriodEnd.Text       = "";
             pnlSummary.Visible      = false;
             btnSave.Enabled         = false;
 
             ViewState.Remove("EmployeeId");
             ViewState.Remove("PeriodLabel");
+            ViewState.Remove("PeriodStartDate");
+            ViewState.Remove("PeriodEndDate");
             ViewState.Remove("RegularHours");
             ViewState.Remove("OvertimeHours");
             ViewState.Remove("BaseRate");

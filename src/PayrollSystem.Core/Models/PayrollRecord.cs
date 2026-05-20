@@ -11,6 +11,8 @@ namespace PayrollSystem.Core.Models
         public int Id { get; set; }
         public int EmployeeId { get; set; }
         public string PeriodLabel { get; set; }
+        public DateTime? PeriodStartDate { get; set; }
+        public DateTime? PeriodEndDate { get; set; }
         public decimal RegularHours { get; set; }
         public decimal OvertimeHours { get; set; }
         public decimal BaseRate { get; set; }

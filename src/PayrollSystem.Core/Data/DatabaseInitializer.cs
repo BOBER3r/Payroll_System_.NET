@@ -64,6 +64,8 @@ namespace PayrollSystem.Core.Data
                     Id                  INTEGER PRIMARY KEY AUTOINCREMENT,
                     EmployeeId          INTEGER NOT NULL,
                     PeriodLabel         TEXT    NOT NULL,
+                    PeriodStartDate     TEXT    NULL,
+                    PeriodEndDate       TEXT    NULL,
                     RegularHours        NUMERIC NOT NULL,
                     OvertimeHours       NUMERIC NOT NULL,
                     BaseRate            NUMERIC NOT NULL,
@@ -88,6 +90,26 @@ namespace PayrollSystem.Core.Data
             ExecuteNonQuery(conn, ddlEmployees);
             ExecuteNonQuery(conn, ddlPayrollRecords);
             ExecuteNonQuery(conn, ddlTaxBrackets);
+
+            AddColumnIfMissing(conn, "PayrollRecords", "PeriodStartDate", "TEXT");
+            AddColumnIfMissing(conn, "PayrollRecords", "PeriodEndDate",   "TEXT");
+        }
+
+        private static void AddColumnIfMissing(SQLiteConnection conn, string table, string column, string type)
+        {
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = "PRAGMA table_info(" + table + ");";
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (string.Equals(reader.GetString(1), column, StringComparison.OrdinalIgnoreCase))
+                            return;
+                    }
+                }
+            }
+            ExecuteNonQuery(conn, "ALTER TABLE " + table + " ADD COLUMN " + column + " " + type + ";");
         }
 
         private static void SeedTaxBracketsIfEmpty(SQLiteConnection conn)

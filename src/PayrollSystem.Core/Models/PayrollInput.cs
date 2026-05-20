@@ -1,3 +1,5 @@
+using System;
+
 namespace PayrollSystem.Core.Models
 {
     /// <summary>
@@ -7,8 +9,14 @@ namespace PayrollSystem.Core.Models
     {
         public int EmployeeId { get; set; }
 
-        /// <summary>Human-readable period label, e.g. "2026-04".</summary>
+        /// <summary>Human-readable period label, e.g. "2026-04-01 → 2026-04-15".</summary>
         public string PeriodLabel { get; set; }
+
+        /// <summary>First day of the pay period.</summary>
+        public DateTime? PeriodStartDate { get; set; }
+
+        /// <summary>Last day of the pay period.</summary>
+        public DateTime? PeriodEndDate { get; set; }
 
         /// <summary>Regular hours worked during the period (decimal to allow half-hours).</summary>
         public decimal RegularHours { get; set; }
