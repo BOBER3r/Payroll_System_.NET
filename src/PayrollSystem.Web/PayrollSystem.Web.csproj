@@ -177,9 +177,14 @@
 
   <Target Name="CopySQLitePCLRawAssemblies" AfterTargets="Build">
     <ItemGroup>
+      <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.core.*\lib\net461\SQLitePCLRaw.core.dll" />
       <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.core.*\lib\netstandard2.0\SQLitePCLRaw.core.dll" />
       <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.bundle_e_sqlite3.*\lib\net461\SQLitePCLRaw.batteries_v2.dll" />
+      <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.bundle_e_sqlite3.*\lib\netstandard2.0\SQLitePCLRaw.batteries_v2.dll" />
+      <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.provider.e_sqlite3.*\lib\net461\SQLitePCLRaw.provider.e_sqlite3.dll" />
       <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.provider.e_sqlite3.*\lib\netstandard2.0\SQLitePCLRaw.provider.e_sqlite3.dll" />
+      <SqlitePclRawFiles Include="$(SolutionDir)packages\Microsoft.Data.Sqlite.Core.*\lib\netstandard2.0\Microsoft.Data.Sqlite.dll" />
+      <SqlitePclRawFiles Include="$(SolutionDir)packages\Microsoft.Data.Sqlite.Core.*\lib\net461\Microsoft.Data.Sqlite.dll" />
       <SqlitePclRawNativeX86 Include="$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.*\runtimes\win-x86\native\e_sqlite3.dll" />
       <SqlitePclRawNativeX64 Include="$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.*\runtimes\win-x64\native\e_sqlite3.dll" />
     </ItemGroup>
