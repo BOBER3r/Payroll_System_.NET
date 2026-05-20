@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 using System.IO;
-using Microsoft.Data.Sqlite;
+using System.Data.SQLite;
 using PayrollSystem.Core.Services;
 
 namespace PayrollSystem.Core.Data
@@ -30,7 +30,7 @@ namespace PayrollSystem.Core.Data
 
             string connectionString = "Data Source=" + dbPath;
 
-            using (var conn = new SqliteConnection(connectionString))
+            using (var conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
@@ -46,7 +46,7 @@ namespace PayrollSystem.Core.Data
             }
         }
 
-        private static void CreateTables(SqliteConnection conn)
+        private static void CreateTables(SQLiteConnection conn)
         {
             const string ddlEmployees = @"
                 CREATE TABLE IF NOT EXISTS Employees (
@@ -90,7 +90,7 @@ namespace PayrollSystem.Core.Data
             ExecuteNonQuery(conn, ddlTaxBrackets);
         }
 
-        private static void SeedTaxBracketsIfEmpty(SqliteConnection conn)
+        private static void SeedTaxBracketsIfEmpty(SQLiteConnection conn)
         {
             // Idempotent guard — SC3 requires re-running EnsureCreated NOT to duplicate seed
             using (var count = conn.CreateCommand())
@@ -119,7 +119,7 @@ namespace PayrollSystem.Core.Data
             }
         }
 
-        private static void ExecuteNonQuery(SqliteConnection conn, string sql)
+        private static void ExecuteNonQuery(SQLiteConnection conn, string sql)
         {
             using (var cmd = conn.CreateCommand())
             {

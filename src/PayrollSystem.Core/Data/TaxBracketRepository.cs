@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Data.Sqlite;
+using System.Data.SQLite;
 using PayrollSystem.Core.Models;
 
 namespace PayrollSystem.Core.Data
@@ -18,7 +18,7 @@ namespace PayrollSystem.Core.Data
     }
 
     /// <summary>
-    /// ADO.NET repository for TaxBrackets using Microsoft.Data.Sqlite.
+    /// ADO.NET repository for TaxBrackets using System.Data.SQLite.
     /// All SQL uses @-named parameters — no string concatenation of user values.
     /// </summary>
     public sealed class TaxBracketRepository : ITaxBracketRepository
@@ -43,7 +43,7 @@ namespace PayrollSystem.Core.Data
                 ORDER  BY LowerBound ASC;";
 
             var results = new List<TaxBracket>();
-            using (var conn = (SqliteConnection)_factory.CreateOpenConnection())
+            using (var conn = (SQLiteConnection)_factory.CreateOpenConnection())
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText = sql;
@@ -79,7 +79,7 @@ namespace PayrollSystem.Core.Data
                        Rate       = @rate
                 WHERE  Id = @id;";
 
-            using (var conn = (SqliteConnection)_factory.CreateOpenConnection())
+            using (var conn = (SQLiteConnection)_factory.CreateOpenConnection())
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText = sql;

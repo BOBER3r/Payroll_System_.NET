@@ -1,6 +1,6 @@
 using System;
 using System.Data;
-using Microsoft.Data.Sqlite;
+using System.Data.SQLite;
 
 namespace PayrollSystem.Core.Data
 {
@@ -20,10 +20,10 @@ namespace PayrollSystem.Core.Data
             _connectionString = connectionString;
         }
 
-        /// <summary>Returns an OPEN SqliteConnection. Caller owns disposal.</summary>
+        /// <summary>Returns an OPEN SQLiteConnection. Caller owns disposal.</summary>
         public IDbConnection CreateOpenConnection()
         {
-            var conn = new SqliteConnection(_connectionString);
+            var conn = new SQLiteConnection(_connectionString);
             conn.Open();
             return conn;
         }

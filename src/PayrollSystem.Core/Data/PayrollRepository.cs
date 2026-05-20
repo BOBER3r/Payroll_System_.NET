@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Microsoft.Data.Sqlite;
+using System.Data.SQLite;
 using PayrollSystem.Core.Models;
 
 namespace PayrollSystem.Core.Data
@@ -28,7 +28,7 @@ namespace PayrollSystem.Core.Data
     }
 
     /// <summary>
-    /// ADO.NET repository for PayrollRecords using Microsoft.Data.Sqlite.
+    /// ADO.NET repository for PayrollRecords using System.Data.SQLite.
     /// All SQL uses @-named parameters — no string concatenation of user values.
     /// </summary>
     public sealed class PayrollRepository : IPayrollRepository
@@ -60,7 +60,7 @@ namespace PayrollSystem.Core.Data
                 );
                 SELECT last_insert_rowid();";
 
-            using (var conn = (SqliteConnection)_factory.CreateOpenConnection())
+            using (var conn = (SQLiteConnection)_factory.CreateOpenConnection())
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText = sql;
@@ -94,7 +94,7 @@ namespace PayrollSystem.Core.Data
                 FROM   PayrollRecords
                 WHERE  Id = @id;";
 
-            using (var conn = (SqliteConnection)_factory.CreateOpenConnection())
+            using (var conn = (SQLiteConnection)_factory.CreateOpenConnection())
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText = sql;
@@ -121,7 +121,7 @@ namespace PayrollSystem.Core.Data
                 ORDER  BY CalculatedAt DESC;";
 
             var results = new List<PayrollRecord>();
-            using (var conn = (SqliteConnection)_factory.CreateOpenConnection())
+            using (var conn = (SQLiteConnection)_factory.CreateOpenConnection())
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText = sql;
@@ -144,7 +144,7 @@ namespace PayrollSystem.Core.Data
         {
             var where = new System.Collections.Generic.List<string>();
 
-            using (var conn = (SqliteConnection)_factory.CreateOpenConnection())
+            using (var conn = (SQLiteConnection)_factory.CreateOpenConnection())
             using (var cmd = conn.CreateCommand())
             {
                 if (employeeId.HasValue)
@@ -187,7 +187,7 @@ namespace PayrollSystem.Core.Data
             }
         }
 
-        private static PayrollRecord MapRecord(SqliteDataReader reader)
+        private static PayrollRecord MapRecord(SQLiteDataReader reader)
         {
             return new PayrollRecord
             {

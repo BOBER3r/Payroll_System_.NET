@@ -19,7 +19,7 @@ namespace PayrollSystem.Web
             // Make the |DataDirectory| token resolve correctly for any provider that DOES expand it
             AppDomain.CurrentDomain.SetData("DataDirectory", appDataPath);
 
-            // Microsoft.Data.Sqlite does NOT expand |DataDirectory| — build the real path ourselves
+            // Build the real path ourselves rather than relying on |DataDirectory| expansion
             string dbPath = Path.Combine(appDataPath, "payroll.db");
             string connectionString = "Data Source=" + dbPath;
 

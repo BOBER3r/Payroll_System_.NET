@@ -59,20 +59,16 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Data.Sqlite, Version=6.0.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Data.Sqlite.Core.6.0.10\lib\netstandard2.0\Microsoft.Data.Sqlite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.118\lib\net46\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SQLitePCLRaw.batteries_v2, Version=2.0.7.880, Culture=neutral, PublicKeyToken=8226ea5df37bcae9, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SQLitePCLRaw.bundle_e_sqlite3.2.0.7\lib\net461\SQLitePCLRaw.batteries_v2.dll</HintPath>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.118\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SQLitePCLRaw.core, Version=2.0.7.880, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SQLitePCLRaw.core.2.0.7\lib\netstandard2.0\SQLitePCLRaw.core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SQLitePCLRaw.provider.e_sqlite3, Version=2.0.7.880, Culture=neutral, PublicKeyToken=502ada25950db28f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SQLitePCLRaw.provider.e_sqlite3.2.0.7\lib\netstandard2.0\SQLitePCLRaw.provider.e_sqlite3.dll</HintPath>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.118\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -175,32 +171,8 @@
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets"
           Condition="'$(VSToolsPath)' != ''" />
 
-  <Target Name="CopySQLitePCLRawAssemblies" AfterTargets="Build">
-    <ItemGroup>
-      <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.core.*\lib\net461\SQLitePCLRaw.core.dll" />
-      <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.core.*\lib\netstandard2.0\SQLitePCLRaw.core.dll" />
-      <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.bundle_e_sqlite3.*\lib\net461\SQLitePCLRaw.batteries_v2.dll" />
-      <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.bundle_e_sqlite3.*\lib\netstandard2.0\SQLitePCLRaw.batteries_v2.dll" />
-      <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.provider.e_sqlite3.*\lib\net461\SQLitePCLRaw.provider.e_sqlite3.dll" />
-      <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.provider.e_sqlite3.*\lib\netstandard2.0\SQLitePCLRaw.provider.e_sqlite3.dll" />
-      <SqlitePclRawFiles Include="$(SolutionDir)packages\Microsoft.Data.Sqlite.Core.*\lib\netstandard2.0\Microsoft.Data.Sqlite.dll" />
-      <SqlitePclRawFiles Include="$(SolutionDir)packages\Microsoft.Data.Sqlite.Core.*\lib\net461\Microsoft.Data.Sqlite.dll" />
-      <SqlitePclRawNativeX86 Include="$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.*\runtimes\win-x86\native\e_sqlite3.dll" />
-      <SqlitePclRawNativeX64 Include="$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.*\runtimes\win-x64\native\e_sqlite3.dll" />
-    </ItemGroup>
-    <Copy SourceFiles="@(SqlitePclRawFiles)"
-          DestinationFolder="$(OutDir)"
-          SkipUnchangedFiles="true"
-          Condition="'@(SqlitePclRawFiles)' != ''" />
-    <Copy SourceFiles="@(SqlitePclRawNativeX86)"
-          DestinationFolder="$(OutDir)x86\"
-          SkipUnchangedFiles="true"
-          Condition="'@(SqlitePclRawNativeX86)' != ''" />
-    <Copy SourceFiles="@(SqlitePclRawNativeX64)"
-          DestinationFolder="$(OutDir)x64\"
-          SkipUnchangedFiles="true"
-          Condition="'@(SqlitePclRawNativeX64)' != ''" />
-  </Target>
+  <Import Project="..\..\packages\System.Data.SQLite.Core.1.0.118\build\net46\System.Data.SQLite.Core.targets"
+          Condition="Exists('..\..\packages\System.Data.SQLite.Core.1.0.118\build\net46\System.Data.SQLite.Core.targets')" />
 
   <ProjectExtensions>
     <VisualStudio>

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Microsoft.Data.Sqlite;
+using System.Data.SQLite;
 using PayrollSystem.Core.Models;
 
 namespace PayrollSystem.Core.Data
@@ -32,7 +32,7 @@ namespace PayrollSystem.Core.Data
     }
 
     /// <summary>
-    /// ADO.NET repository for Employees using Microsoft.Data.Sqlite.
+    /// ADO.NET repository for Employees using System.Data.SQLite.
     /// All SQL uses @-named parameters — no string concatenation of user values.
     /// </summary>
     public sealed class EmployeeRepository : IEmployeeRepository
@@ -55,7 +55,7 @@ namespace PayrollSystem.Core.Data
                 ORDER  BY LastName, FirstName;";
 
             var results = new List<Employee>();
-            using (var conn = (SqliteConnection)_factory.CreateOpenConnection())
+            using (var conn = (SQLiteConnection)_factory.CreateOpenConnection())
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText = sql;
@@ -76,7 +76,7 @@ namespace PayrollSystem.Core.Data
                 FROM   Employees
                 WHERE  Id = @id;";
 
-            using (var conn = (SqliteConnection)_factory.CreateOpenConnection())
+            using (var conn = (SQLiteConnection)_factory.CreateOpenConnection())
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText = sql;
@@ -105,7 +105,7 @@ namespace PayrollSystem.Core.Data
                 VALUES (@firstName, @lastName, @position, @rate, @active, @createdAt);
                 SELECT last_insert_rowid();";
 
-            using (var conn = (SqliteConnection)_factory.CreateOpenConnection())
+            using (var conn = (SQLiteConnection)_factory.CreateOpenConnection())
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText = sql;
@@ -140,7 +140,7 @@ namespace PayrollSystem.Core.Data
                        IsActive       = @active
                 WHERE  Id = @id;";
 
-            using (var conn = (SqliteConnection)_factory.CreateOpenConnection())
+            using (var conn = (SQLiteConnection)_factory.CreateOpenConnection())
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText = sql;
@@ -167,7 +167,7 @@ namespace PayrollSystem.Core.Data
 
             const string sql = "DELETE FROM Employees WHERE Id = @id;";
 
-            using (var conn = (SqliteConnection)_factory.CreateOpenConnection())
+            using (var conn = (SQLiteConnection)_factory.CreateOpenConnection())
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandText = sql;
@@ -176,7 +176,7 @@ namespace PayrollSystem.Core.Data
             }
         }
 
-        private static Employee MapEmployee(SqliteDataReader reader)
+        private static Employee MapEmployee(SQLiteDataReader reader)
         {
             return new Employee
             {
