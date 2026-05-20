@@ -175,29 +175,26 @@
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets"
           Condition="'$(VSToolsPath)' != ''" />
 
-  <!-- Force-copy SQLitePCLRaw assemblies into bin\. The legacy <Reference>
-       HintPaths above can silently miss copying these on some restores,
-       which causes runtime FileNotFoundException for SQLitePCLRaw.core. -->
   <Target Name="CopySQLitePCLRawAssemblies" AfterTargets="Build">
     <ItemGroup>
-      <_SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.core.*\lib\netstandard2.0\SQLitePCLRaw.core.dll" />
-      <_SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.bundle_e_sqlite3.*\lib\net461\SQLitePCLRaw.batteries_v2.dll" />
-      <_SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.provider.e_sqlite3.*\lib\netstandard2.0\SQLitePCLRaw.provider.e_sqlite3.dll" />
-      <_SqlitePclRawNative Include="$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.*\runtimes\win-x86\native\e_sqlite3.dll" />
-      <_SqlitePclRawNative64 Include="$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.*\runtimes\win-x64\native\e_sqlite3.dll" />
+      <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.core.*\lib\netstandard2.0\SQLitePCLRaw.core.dll" />
+      <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.bundle_e_sqlite3.*\lib\net461\SQLitePCLRaw.batteries_v2.dll" />
+      <SqlitePclRawFiles Include="$(SolutionDir)packages\SQLitePCLRaw.provider.e_sqlite3.*\lib\netstandard2.0\SQLitePCLRaw.provider.e_sqlite3.dll" />
+      <SqlitePclRawNativeX86 Include="$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.*\runtimes\win-x86\native\e_sqlite3.dll" />
+      <SqlitePclRawNativeX64 Include="$(SolutionDir)packages\SQLitePCLRaw.lib.e_sqlite3.*\runtimes\win-x64\native\e_sqlite3.dll" />
     </ItemGroup>
-    <Copy SourceFiles="@(_SqlitePclRawFiles)"
+    <Copy SourceFiles="@(SqlitePclRawFiles)"
           DestinationFolder="$(OutDir)"
           SkipUnchangedFiles="true"
-          Condition="'@(_SqlitePclRawFiles)' != ''" />
-    <Copy SourceFiles="@(_SqlitePclRawNative)"
+          Condition="'@(SqlitePclRawFiles)' != ''" />
+    <Copy SourceFiles="@(SqlitePclRawNativeX86)"
           DestinationFolder="$(OutDir)x86\"
           SkipUnchangedFiles="true"
-          Condition="'@(_SqlitePclRawNative)' != ''" />
-    <Copy SourceFiles="@(_SqlitePclRawNative64)"
+          Condition="'@(SqlitePclRawNativeX86)' != ''" />
+    <Copy SourceFiles="@(SqlitePclRawNativeX64)"
           DestinationFolder="$(OutDir)x64\"
           SkipUnchangedFiles="true"
-          Condition="'@(_SqlitePclRawNative64)' != ''" />
+          Condition="'@(SqlitePclRawNativeX64)' != ''" />
   </Target>
 
   <ProjectExtensions>
